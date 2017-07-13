@@ -1,0 +1,37 @@
+<div flex="66">
+    <table class="rwd-table">
+        <center><h1>{{dictionary.Dictionary[0].HousesList}}</h1></center>
+        <tr>
+            <th>{{dictionary.Dictionary[0].HouseId}}</th>
+            <th>{{dictionary.Dictionary[0].State}}</th>
+            <th>{{dictionary.Dictionary[0].City}}</th>
+            <th>{{dictionary.Dictionary[0].Street}}</th>
+            <th>{{dictionary.Dictionary[0].HouseNumber}}</th>
+            <th>{{dictionary.Dictionary[0].HouseKind}}</th>
+            <th>{{dictionary.Dictionary[0].NumberOfRooms}}</th>
+            <th>{{dictionary.Dictionary[0].NumberOfLivingRooms}}</th>
+            <th>{{dictionary.Dictionary[0].NumberOfKitchens}}</th>
+            <th>{{dictionary.Dictionary[0].NumberOfBedrooms}}</th>
+            <th>{{dictionary.Dictionary[0].NumberOfBathrooms}}</th>
+            <th>{{dictionary.Dictionary[0].LocationKind}}</th>
+            <th>{{dictionary.Dictionary[0].Comments}}</th>
+
+        </tr>
+        <tr ng-repeat="x in houses">
+
+            <td>{{ x.house_id}}</td>
+            <td>{{ x.state}}</td>
+            <td>{{ x.city}}</td>
+            <td>{{ x.street}}</td>
+            <td>{{ x.house_number}}</td>
+            <td>{{ x.house_kind}}</td>
+            <td>{{ x.number_of_rooms}}</td>
+            <td>{{ x.number_of_living_rooms}}</td>
+            <td>{{ x.number_of_kitchens}}</td>
+            <td>{{ x.number_of_bedrooms}}</td>
+            <td>{{ x.number_of_bathrooms}}</td>
+            <td>{{ x.location_kind}}</td>
+            <td>{{ x.comments}}</td>
+        </tr>
+    </table>
+</div>

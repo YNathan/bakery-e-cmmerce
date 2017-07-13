@@ -1,0 +1,326 @@
+<md-content class="md-padding" style="background: url('../images/background.jpg');" layout-align="center center">
+    <md-checkbox ng-checked="isNewHouseChecked" ng-click="isNewHouseChecked = true">הכנס בית חדש
+    </md-checkbox>
+    <md-checkbox ng-checked="!isNewHouseChecked" ng-click="isNewHouseChecked = false">ערוך בית קיים
+    </md-checkbox>
+</md-content>
+
+<md-input-container ng-if="!isNewHouseChecked">
+    <md-select placeholder="בחר בית לעריכה" ng-model="Houses.selectedOption">
+        <md-option ng-value="House" ng-repeat="House in Houses.availableOptions">
+            {{House.house_number +" "+House.street+" "+ House.city+" "+ House.state }}
+        </md-option>
+    </md-select>
+</md-input-container>
+
+<md-content class="md-padding trns" style="background: url('../images/background.jpg');" ng-if="isNewHouseChecked">
+    <md-tabs class="md-padding" md-selected="dataTabs.selectedIndex" layout-fill
+             md-align-tabs="{{dataTabs.bottom ? 'bottom' : 'top'}}">
+        <md-tab id="tab1" class="md-padding">
+            <md-tab-label>{{dictionary.Dictionary[0].Address}}</md-tab-label>
+            <md-tab-body>
+                </br></br>
+                <div class="flex-container">
+                    <div layout="row" layout-sm="column" md-colors="{color: 'red-A100', border-color: 'primary-600'}"
+                         style="background-color: #DDDDDD;">
+                        <div flex=100>
+                            <form ng-submit="setNewHouseAddress(this)" class="md-padding">
+                                <md-input-container>
+                                    <label>{{dictionary.Dictionary[0].State}} :</label>
+                                    <input type="text" ng-model="state" name="text" placeholder="ארץ" required/>
+                                </md-input-container>
+
+                                <md-input-container>
+                                    <label> {{dictionary.Dictionary[0].City}} :</label>
+                                    <input type="text" ng-model="city" name="text" placeholder="עיר" required/>
+                                </md-input-container>
+
+                                <md-input-container>
+                                    <label> {{dictionary.Dictionary[0].Street}} :</label>
+                                    <input type="text" ng-model="street" name="text" placeholder="רחוב" required/>
+                                </md-input-container>
+
+                                <md-input-container>
+                                    <label> {{dictionary.Dictionary[0].HouseNumber}} :</label>
+                                    <input type="number" ng-model="house_number" name="text" placeholder="מספר בית"
+                                           required/>
+                                </md-input-container>
+                                <center>
+                                    <md-input-container>
+                                        <md-button class="md-raised md-primary" type="submit" id="submit">שמור
+                                        </md-button>
+                                    </md-input-container>
+                                </center>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </md-tab-body>
+        </md-tab>
+
+        <md-tab id="tab2" ng-disabled="dataTabs.TabsLocked">
+            <md-tab-label>{{dictionary.Dictionary[0].GeneralHouseDetailes}}</md-tab-label>
+            <md-tab-body>
+                </br></br>
+                <div class="flex-container">
+                    <div layout="row" layout-sm="column" md-colors="{color: 'red-A100', border-color: 'primary-600'}"
+                         style="background-color: #DDDDDD;">
+                        <div flex=100>
+                            <form ng-submit="setHouseGeneralDetails(this)" class="md-padding">
+                                <md-input-container>
+                                    <label> {{dictionary.Dictionary[0].HouseKind}}:</label>
+                                    <input type="number" ng-model="house_kind" name="text" placeholder="מספר בית"
+                                           required/>
+                                </md-input-container>
+                                <md-input-container>
+                                    <label> {{dictionary.Dictionary[0].NumberOfRooms}}:</label>
+                                    <input type="number" ng-model="number_of_rooms" name="text" placeholder="מספר בית"
+                                           required/>
+                                </md-input-container>
+                                <md-input-container>
+                                    <label> {{dictionary.Dictionary[0].NumberOfLivingRooms }}:</label>
+                                    <input type="number" ng-model="number_of_living_rooms" name="text"
+                                           placeholder="מספר בית" required/>
+                                </md-input-container>
+                                <md-input-container>
+                                    <label>{{dictionary.Dictionary[0].NumberOfKitchens }}:</label>
+                                    <input type="number" ng-model="number_of_kitchens" name="text"
+                                           placeholder="מספר בית" required/>
+                                </md-input-container>
+                                <md-input-container>
+                                    <label> {{dictionary.Dictionary[0].NumberOfBedrooms}} :</label>
+                                    <input type="number" ng-model="number_of_bedrooms" name="text"
+                                           placeholder="מספר בית" required/>
+                                </md-input-container>
+                                <md-input-container>
+                                    <label> {{dictionary.Dictionary[0].NumberOfBathrooms}} :</label>
+                                    <input type="number" ng-model="number_of_bathrooms" name="text"
+                                           placeholder="מספר בית" required/>
+                                </md-input-container>
+                                <md-input-container>
+                                    <label> {{dictionary.Dictionary[0].LocationKind}} :</label>
+                                    <input type="number" ng-model="location_kind" name="text" placeholder="מספר בית"
+                                           required/>
+                                </md-input-container>
+                                <md-input-container>
+                                    <label> {{dictionary.Dictionary[0].Comments}} :</label>
+                                    <input type="text" ng-model="comments" name="text" placeholder="רחוב" required/>
+                                </md-input-container>
+                                <center>
+                                    <md-input-container>
+                                        <md-button class="md-raised md-primary" type="submit" id="submit">שמור
+                                        </md-button>
+                                    </md-input-container>
+                                </center>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </md-tab-body>
+        </md-tab>
+        <md-tab id="tab3" ng-disabled="dataTabs.TabsLocked">
+            <md-tab-label>{{dictionary.Dictionary[0].FinancialHouseDetailes}}</md-tab-label>
+            <md-tab-body>
+                </br></br>
+                <div class="flex-container">
+                    <div layout="row" layout-sm="column" md-colors="{color: 'red-A100', border-color: 'primary-600'}"
+                         style="background-color: #DDDDDD;">
+                        <div flex=100>
+                            <form ng-submit="setHouseFinancialDetails(this)" class="md-padding">
+                                <md-input-container>
+                                    <label> {{dictionary.Dictionary[0].PurchasePrice}} :</label>
+                                    <input type="number" ng-model="purchase_price" name="text" placeholder="מספר בית"
+                                           required/>
+                                </md-input-container>
+                                <md-input-container>
+                                    <label> {{dictionary.Dictionary[0].TreatmentFees}} :</label>
+                                    <input type="number" ng-model="treatment_fees" name="text" placeholder="מספר בית"
+                                           required/>
+                                </md-input-container>
+                                <md-input-container>
+                                    <label> {{dictionary.Dictionary[0].RenovationFeesForSale}} :</label>
+                                    <input type="number" ng-model="renovation_fees_for_sale" name="text"
+                                           placeholder="מספר בית" required/>
+                                </md-input-container>
+                                <md-input-container>
+                                    <label> {{dictionary.Dictionary[0].RenovationFeesForRenting}} :</label>
+                                    <input type="number" ng-model="renovation_fees_for_renting" name="text"
+                                           placeholder="מספר בית" required/>
+                                </md-input-container>
+                                <md-input-container>
+                                    <label> {{dictionary.Dictionary[0].DiversFees}} :</label>
+                                    <input type="number" ng-model="divers_fees" name="text" placeholder="מספר בית"
+                                           required/>
+                                </md-input-container>
+
+                                <center>
+                                    <md-input-container>
+                                        <md-button class="md-raised md-primary" type="submit" id="submit">שמור
+                                        </md-button>
+                                    </md-input-container>
+                                </center>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </md-tab-body>
+        </md-tab>
+        <md-tab id="tab4" ng-disabled="dataTabs.TabsLocked">
+            <md-tab-label> {{dictionary.Dictionary[0].HouseProfilePicture}}</md-tab-label>
+            <md-tab-body>
+                </br></br>
+                <form name="testForm" layout="column" class="md-padding" s style="background-color: #DDDDDD;">
+                    <lf-ng-md-file-input name="files" lf-files="houseProfilePicture" lf-api="api" lf-required
+                                         lf-maxcount="5" lf-filesize="10MB" lf-totalsize="20MB" lf-mimetype="image/*"
+                                         multiple drag preview></lf-ng-md-file-input>
+                    <div ng-messages="testForm.files00.$error" style="color:red;">
+                        <div ng-message="required">This is required.</div>
+                        <div ng-message="maxcount">Too much files.</div>
+                        <div ng-message="filesize">File size too large.</div>
+                        <div ng-message="totalsize">Total size too large.</div>
+                        <div ng-message="mimetype">Mimetype error.</div>
+                    </div>
+                    <md-button type="button" class="md-raised md-primary" ng-click="uploadHouseProfilePicture()">
+                        Submit
+                    </md-button>
+                </form>
+
+            </md-tab-body>
+
+        </md-tab>
+        <md-tab id="tab5" ng-disabled="dataTabs.TabsLocked">
+            <md-tab-label> {{dictionary.Dictionary[0].UploadHousePictures}}</md-tab-label>
+            <md-tab-body>
+                </br></br>
+                <form name="testForm" layout="column" class="md-padding" s style="background-color: #DDDDDD;">
+                    <lf-ng-md-file-input name="files" lf-files="files" lf-api="api" lf-required lf-maxcount="5"
+                                         lf-filesize="10MB" lf-totalsize="20MB" lf-mimetype="image/*" multiple drag
+                                         preview></lf-ng-md-file-input>
+                    <div ng-messages="testForm.files00.$error" style="color:red;">
+                        <div ng-message="required">This is required.</div>
+                        <div ng-message="maxcount">Too much files.</div>
+                        <div ng-message="filesize">File size too large.</div>
+                        <div ng-message="totalsize">Total size too large.</div>
+                        <div ng-message="mimetype">Mimetype error.</div>
+                    </div>
+                    <md-button type="button" class="md-raised md-primary" ng-click="uploadHousePictures()">Submit
+                    </md-button>
+                </form>
+
+            </md-tab-body>
+
+        </md-tab>
+        <md-tab id="tab6" ng-disabled="dataTabs.TabsLocked">
+            <md-tab-label> {{dictionary.Dictionary[0].UploadHouseFiles}}</md-tab-label>
+            <md-tab-body>
+                </br></br>
+                <form name="testForm" layout="column" class="md-padding" s style="background-color: #DDDDDD;">
+                    <lf-ng-md-file-input name="files" lf-files="houseDocuments" lf-api="api" lf-required lf-maxcount="5"
+                                         lf-filesize="10MB" lf-totalsize="20MB" lf-mimetype="image/*" multiple drag
+                                         preview></lf-ng-md-file-input>
+                    <div ng-messages="testForm.files00.$error" style="color:red;">
+                        <div ng-message="required">This is required.</div>
+                        <div ng-message="maxcount">Too much files.</div>
+                        <div ng-message="filesize">File size too large.</div>
+                        <div ng-message="totalsize">Total size too large.</div>
+                        <div ng-message="mimetype">Mimetype error.</div>
+                    </div>
+                    <md-button type="button" class="md-raised md-primary" ng-click="uploadFiles()">Submit</md-button>
+                </form>
+
+            </md-tab-body>
+
+        </md-tab>
+
+    </md-tabs>
+</md-content>
+<!-Editing house section-->
+<md-content class="md-padding" style="background: url('../images/background.jpg');" ng-if="!isNewHouseChecked && houseWasChosen">
+    <div layout="row" layout-sm="column" md-colors="{color: 'red-A100', border-color: 'primary-600'}" style="background-color: #DDDDDD;">
+        <div flex=100>
+            <form ng-submit="updateHouse()" class="md-padding">
+                <md-input-container>
+                    <label>{{dictionary.Dictionary[0].State}} :</label>
+                    <input type="text" ng-model="houseToEdit.state" name="text" placeholder="ארץ" required/>
+                </md-input-container>
+
+                <md-input-container>
+                    <label> {{dictionary.Dictionary[0].City}} :</label>
+                    <input type="text" ng-model="houseToEdit.city" name="text" placeholder="עיר" required/>
+                </md-input-container>
+
+                <md-input-container>
+                    <label> {{dictionary.Dictionary[0].Street}} :</label>
+                    <input type="text" ng-model="houseToEdit.street" name="text" placeholder="רחוב" required/>
+                </md-input-container>
+
+                <md-input-container>
+                    <label> {{dictionary.Dictionary[0].HouseNumber}} :</label>
+                    <input type="number" ng-model="houseToEdit.house_number" name="text" placeholder="מספר בית"
+                           required/>
+                </md-input-container>
+                <md-input-container>
+                    <label> {{dictionary.Dictionary[0].Comments}} :</label>
+                    <input type="text" ng-model="houseToEdit.comments" name="text" required/>
+                </md-input-container>
+                <md-input-container>
+                    <label> {{dictionary.Dictionary[0].HouseKind}}:</label>
+                    <input type="number" ng-model="houseToEdit.house_kind" name="text" required/>
+                </md-input-container>
+                <md-input-container>
+                    <label> {{dictionary.Dictionary[0].NumberOfRooms}}:</label>
+                    <input type="number" ng-model="houseToEdit.number_of_rooms" name="text" required/>
+                </md-input-container>
+                <md-input-container>
+                    <label> {{dictionary.Dictionary[0].NumberOfLivingRooms }}:</label>
+                    <input type="number" ng-model="houseToEdit.number_of_living_rooms" name="text" required/>
+                </md-input-container>
+                <md-input-container>
+                    <label>{{dictionary.Dictionary[0].NumberOfKitchens }}:</label>
+                    <input type="number" ng-model="houseToEdit.number_of_kitchens" name="text" required/>
+                </md-input-container>
+                <md-input-container>
+                    <label> {{dictionary.Dictionary[0].NumberOfBedrooms}} :</label>
+                    <input type="number" ng-model="houseToEdit.number_of_bedrooms" name="text" required/>
+                </md-input-container>
+                <md-input-container>
+                    <label> {{dictionary.Dictionary[0].NumberOfBathrooms}} :</label>
+                    <input type="number" ng-model="houseToEdit.number_of_bathrooms" name="text" required/>
+                </md-input-container>
+                <md-input-container>
+                    <label> {{dictionary.Dictionary[0].LocationKind}} :</label>
+                    <input type="number" ng-model="houseToEdit.location_kind" name="text" required/>
+                </md-input-container>
+                <md-input-container>
+                    <label> {{dictionary.Dictionary[0].PurchasePrice}} :</label>
+                    <input type="number" ng-model="houseToEdit.purchase_price" name="text" required/>
+                </md-input-container>
+                <md-input-container>
+                    <label> {{dictionary.Dictionary[0].TreatmentFees}} :</label>
+                    <input type="number" ng-model="houseToEdit.treatment_fees" name="text" required/>
+                </md-input-container>
+                <md-input-container>
+                    <label> {{dictionary.Dictionary[0].RenovationFeesForSale}} :</label>
+                    <input type="number" ng-model="houseToEdit.renovation_fees_for_sale" name="text" required/>
+                </md-input-container>
+                <md-input-container>
+                    <label> {{dictionary.Dictionary[0].RenovationFeesForRenting}} :</label>
+                    <input type="number" ng-model="houseToEdit.renovation_fees_for_renting" name="text" required/>
+                </md-input-container>
+                <md-input-container>
+                    <label> {{dictionary.Dictionary[0].DiversFees}} :</label>
+                    <input type="number" ng-model="houseToEdit.divers_fees" name="text" required/>
+                </md-input-container>
+                <center>
+                    <md-input-container>
+                        <md-button class="md-raised md-primary" type="submit" id="submit">שמור
+                        </md-button>
+                    </md-input-container>
+                </center>
+            </form>
+        </div>
+    </div>
+</md-content>

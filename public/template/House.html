@@ -1,0 +1,147 @@
+<div layout="column" layout-sm="column" flex>
+    <div>
+        <center><label class="myFont">{{dictionary.Dictionary[0].WellcomToYourAccount}} {{message}}</label>
+        </center>
+    </div>
+    <div>
+        <center>
+            <md-button ng-click="backToTheCatalog()"><label class="myFont">{{backToButton}}</label></md-button>
+        </center>
+    </div>
+    </br>
+</div>
+</br>
+</br>
+
+
+</br>
+
+
+<div ng-cloak="" class="carddemoCardActionButtons">
+    <md-content class="md-padding" layout-xs="column" layout="row" style="background-color:transparent;">
+        <div flex-xs="" flex-gt-xs="50" layout="column"
+             ng-repeat="srcProfileImage in houseProfilePathesImages.availableOptions">
+            <md-card style="border-radius: 10px 10px 0 0">
+                <img ng-src=/GET_SPECIFIC_HOUSE_PROFILE_PICTURES/{{srcProfileImage}}
+                     ng-click="houseClicked(srcProfileImage)" class="md-card-image" alt="Washed Out" style="border-radius: 10px 10px 0 0">
+            </md-card>
+        </div>
+    </md-content>
+</div>
+
+
+<div flex layout="column" ng-if="houseWasLoaded">
+    <center>
+        <h3>{{dictionary.Dictionary[0].AreaOnTheMap}}</h3>
+        <div id="map" style="height: 300px; width: 800px;"></div>
+        <section flex style="background-color: #DDDDDD;">
+            <md-content layout-padding="" style="background-color: #DDDDDD;">
+                <h1>Haouse Images</h1>
+                <img src=/GET_SPECIFIC_FILE/{{houseImage}}>
+            </md-content>
+        </section>
+        <section layout="row" layout-padding="" style="background-color: #DDDDDD;">
+            <cl-paging flex cl-pages="pagingImage.total" , cl-steps="6" , cl-page-changed="pagingImage.onPageChanged()"
+                       ,
+                       cl-align="center center" , cl-current-page="pagingImage.current"></cl-paging>
+        </section>
+    </center>
+
+</div>
+
+
+<center>
+
+
+    <table class="rwd-table" ng-if="houseWasLoaded">
+        <h1 ng-if="houseWasLoaded">{{dictionary.Dictionary[0].HouseTable}}</h1>
+        <tr>
+            <td>{{dictionary.Dictionary[0].HouseId}}</td>
+            <td>{{house_id}}</td>
+        </tr>
+        <tr>
+            <td>{{dictionary.Dictionary[0].Address}}</td>
+            <td>{{house_number}} {{street}} {{city}} {{state}}</td>
+        </tr>
+        <tr>
+            <td>{{dictionary.Dictionary[0].HouseKind}}</td>
+            <td>{{house_kind}}</td>
+        </tr>
+        <tr>
+            <td>{{dictionary.Dictionary[0].NumberOfRooms}}</td>
+            <td>{{number_of_rooms}}</td>
+        </tr>
+        <tr>
+            <td>{{dictionary.Dictionary[0].NumberOfLivingRooms}}</td>
+            <td>{{number_of_living_rooms}}</td>
+        </tr>
+        <tr>
+            <td>{{dictionary.Dictionary[0].NumberOfKitchens}}</td>
+            <td>{{number_of_kitchens}}</td>
+        </tr>
+        <tr>
+            <td>{{dictionary.Dictionary[0].NumberOfBedrooms}}</td>
+            <td>{{number_of_bedrooms}}</td>
+        </tr>
+        <tr>
+            <td>{{dictionary.Dictionary[0].NumberOfBathrooms}}</td>
+            <td>{{number_of_bathrooms}}</td>
+        </tr>
+        <tr>
+            <td>{{dictionary.Dictionary[0].LocationKind}}</td>
+            <td>{{location_kind}}</td>
+        </tr>
+        <tr>
+            <td>{{dictionary.Dictionary[0].Comments}}</td>
+            <td>{{comments}}</td>
+        </tr>
+        <tr>
+            <td>{{dictionary.Dictionary[0].PurchasePrice}}</td>
+            <td>{{purchase_price}}</td>
+        </tr>
+        <tr>
+            <td>{{dictionary.Dictionary[0].TreatmentFees}}</td>
+            <td>{{treatment_fees}}</td>
+        </tr>
+        <tr>
+            <td>{{dictionary.Dictionary[0].RenovationFeesForSale}}</td>
+            <td>{{renovation_fees_for_sale}}</td>
+        </tr>
+        <tr>
+            <td>{{dictionary.Dictionary[0].RenovationFeesForRenting}}</td>
+            <td>{{renovation_fees_for_renting}}</td>
+        </tr>
+        <tr>
+            <td>{{dictionary.Dictionary[0].DiversFees}}</td>
+            <td>{{divers_fees}}</td>
+        </tr>
+        <tr>
+            <td>
+                <center><input type="submit" id="submit" class="myButton" ng-click="sendMeMail(house_id)"
+                               value={{dictionary.Dictionary[0].SendMeThisHouseToMyMail}}></center>
+            </td>
+        </tr>
+    </table>
+</center>
+
+
+<div flex layout="column" ng-if="houseWasLoaded">
+    <center>
+        <section flex style="background-color: #DDDDDD;">
+            <md-content layout-padding="" style="background-color: #DDDDDD;">
+                <h1>House Documetns</h1>
+                <img src=/GET_SPECIFIC_DOCUMENTS/{{houseDocument}}>
+            </md-content>
+        </section>
+        <section layout="row" layout-padding="" style="background-color: #DDDDDD;">
+            <cl-paging flex cl-pages="pagingDocument.total" , cl-steps="6" ,
+                       cl-page-changed="pagingDocument.onPageChanged()" ,
+                       cl-align="center center" , cl-current-page="pagingDocument.current"></cl-paging>
+        </section>
+    </center>
+
+</div>
+<center><md-button ng-click="deleteHouse($event,house_id)" ng-if="houseWasLoaded && isManager" style="color:red"> delete this house</md-button></center>
+
+
+

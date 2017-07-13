@@ -1,0 +1,23 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET         /                                      controllers.Application.index()
+POST        /LOGIN/:username/:password             controllers.getter.isLoginPermited(username:String,password:String)
+GET         /GET_LIST_OF_EXISTING_LANGUAGES        controllers.getter.getListOfExistingLanguages()
+GET         /GET_LANGUAGE/:szLanguage              controllers.getter.getLanguage(szLanguage:String)
+GET         /GET_ALL_FOODS                         controllers.getter.getAllFoods()
+GET         /GET_BASSARI                           controllers.getter.getBassariFoods()
+GET         /GET_HALAVI                            controllers.getter.getHalaviFoods()
+GET         /GET_PARVE                             controllers.getter.getParveFoods()
+GET         /GET_IS_VEGETARIAN                     controllers.getter.getVegetarianFoods()
+GET         /GET_IS_VEGAN                          controllers.getter.getVeganFoods()
+GET         /GET_IN_KEYTRING                       controllers.getter.getInKeytring()
+GET         /GET_IN_SUCURSAL                       controllers.getter.getInSucursal()
+GET         /GET_IMAGE/:imageName                  controllers.getter.getSpecificImage(imageName:String)
+GET         /GET_FOOD/:foodKind                    controllers.getter.getFood(foodKind: String)
+
+# Map static resources from the /public folder to the /assets URL path
+
+GET         /assets/*file                          controllers.Assets.at(path="/public", file)

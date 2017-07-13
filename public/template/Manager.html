@@ -1,0 +1,62 @@
+<div layout="column" style="background-color: #8a8f94">
+    <table flex table border=10 frame=void rules=rows>
+        <threat>
+            <tr>
+                <th>מספר משתמש במערכת</th>
+                <th>שם משתמש</th>
+                <th>מס' טלפון</th>
+                <th>אימייל</th>
+                <th>קוד כניסה</th>
+                <th>הרשאות מנהל</th>
+                <th>הרשאות צפייה</th>
+            </tr>
+        </threat>
+        <tbody>
+        <tr ng-repeat="usr in users" >
+            <hr>
+            <td>
+                <center>{{usr.userId}}</center>
+            </td>
+            <td>
+                <input type="text" ng-model=usr.username name="text" size="14"/>
+            </td>
+            <td><input type="text" ng-model=usr.telephone name="text" size="10"/></td>
+            <td><input type="text" ng-model=usr.email name="text"/></td>
+            <td><input type="text" ng-model=usr.password name="text" size="10"/></td>
+            <td>
+                <center>
+                    <md-checkbox ng-model="usr.permissionManager"></md-checkbox>
+                </center>
+            </td>
+            <td>
+
+                <ul>
+                    <div ng-repeat="hptv in usr.housePermitedToViews">
+                        <input ng-model="hptv.houseAdress" disabled>
+                        <md-checkbox ng-model="hptv.isPermitedToView"></md-checkbox>
+                    </div>
+
+                </ul>
+
+
+
+                <!--select ng-model="hptv" ng-options="x for x in usr.housePermitedToViews">
+                    <option>{{x.houseAdress}}</option>
+                </select-->
+
+            </td>
+            <td>
+                <md-button ng-click="editUser(usr)" class="md-primary md-raised">שמור</md-button>
+            </td>
+            <td>
+                <md-button ng-click="deleteUser(usr)" class="md-primary md-raised">מחק משתמש</md-button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div flex style="background-color: #8a8f94">
+        <md-button ng-click="addUser()" layout-align="center center" class="md-primary md-raised">הוסף משתמש</md-button>
+    </div>
+
+</div>
+
