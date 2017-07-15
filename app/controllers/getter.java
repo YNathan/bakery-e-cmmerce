@@ -2,11 +2,7 @@ package controllers;
 
 
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -18,7 +14,6 @@ import play.mvc.Controller;
 import play.mvc.Result;
 
 
-import static play.mvc.Http.Context.Implicit.request;
 
 /**
  * @author Yaacov

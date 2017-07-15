@@ -1,5 +1,6 @@
 app.controller('welcome', ['$scope', '$http', '$state', '$interval', '$mdDialog', '$mdSidenav', 'ShamayimFunctions', '$rootScope', function ($scope, $http, $state, $interval, $mdDialog, $mdSidenav, ShamayimFunctions, $rootScope) {
 
+    $scope.lala = "poulet roty";
     ShamayimFunctions.setIsLoggedCookie("false");
     // Language Section
 
@@ -52,25 +53,24 @@ app.controller('welcome', ['$scope', '$http', '$state', '$interval', '$mdDialog'
 
     // Get Profile Images
     function getFoodProfileImages(foodName) {
-        totalPages = 0;
         $http.get('/GET_FOOD/'+foodName)
             .then(function successCallback(response) {
-                    angular.forEach(response.data.files, function (value, key) {
+                    $scope.foodProfilePathesImages.availableOptions = [];
+                    angular.forEach(response.data, function (value, key) {
                         itemName = {
                             id: key,
                             imagesSource: value
                         }
-                        totalPages++;
                         $scope.foodProfilePathesImages.availableOptions.push(itemName.imagesSource);
                     }, $scope.foodProfilePathesImages);
 
                 },
                 function error(response) {
-                    showAlert("Your attention please", response.data, "cant load houses");
+                    showAlert("Your attention please", response.data, "cant load food");
                 });
     }
 
-    $rootScope.Repas = {
+    $scope.Repas = {
         availableOptions: [],
         selectedOption: {
             id: '1',
@@ -84,20 +84,20 @@ app.controller('welcome', ['$scope', '$http', '$state', '$interval', '$mdDialog'
         RepasHPB: "Bessari"
     }
     tempArr.push(itemName);
-    $rootScope.Repas.availableOptions.push(itemName.RepasHPB);
+    $scope.Repas.availableOptions.push(itemName.RepasHPB);
     itemName = {
         id: 2,
         RepasHPB: "Parve"
     }
     tempArr.push(itemName);
-    $rootScope.Repas.availableOptions.push(itemName.RepasHPB);
+    $scope.Repas.availableOptions.push(itemName.RepasHPB);
     itemName = {
         id: 3,
         RepasHPB: "Halavi"
     }
     tempArr.push(itemName);
 
-    $rootScope.Repas.availableOptions.push(itemName.RepasHPB);
+    $scope.Repas.availableOptions.push(itemName.RepasHPB);
     function getLanguage(szLanguageName) {
         // Get information conserning the house
         $http.get("/GET_LANGUAGE/" + szLanguageName)
@@ -115,18 +115,15 @@ app.controller('welcome', ['$scope', '$http', '$state', '$interval', '$mdDialog'
 
     getLanguage("עברית");
 
-    $rootScope.$watch('Repas.selectedOption', function (newVal, oldVal) {
+    $scope.$watch('Repas.selectedOption', function (newVal, oldVal) {
         if (newVal != oldVal) {
             RepasName = newVal;
-            getRepas(RepasName)
+            getFoodProfileImages(RepasName)
 
         }
     })
 
 
-    function getRepas(repasName) {
-        getFoodProfileImages(repasName);
-    }
 
 // End Of Getting Repas Section
 
@@ -200,8 +197,34 @@ app.controller('welcome', ['$scope', '$http', '$state', '$interval', '$mdDialog'
         };
 
     }
+newMapLocation(12,'BOGRASHOV','tel aviv','israel')
+    function newMapLocation(nNumberOfHouse, szStreetName, szCityName, szStateName) {
+        var longitude = 0.0;
+        var latitude = 0.0;
 
+        // Get information conserning the house
+        $http.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + nNumberOfHouse + "," + szStreetName + "," + szCityName + "," + szStateName + "&key=AIzaSyDiEizMb95sLkzDtvQ-eRoZb-LzYmv2VVI")
+            .then(function successCallback(response) {
+                    latitude = response.data.results[0].geometry.location.lat;
+                    longitude = response.data.results[0].geometry.location.lng;
+                    var uluru = {
+                        lat: latitude,
+                        lng: longitude
+                    };
+                    var map = new google.maps.Map(document.getElementById('map'), {
+                        zoom: 15,
+                        center: uluru
+                    });
+                    var marker = new google.maps.Marker({
+                        position: uluru,
+                        map: map
+                    });
+                },
+                function error(response) {
+                    ShamayimFunctions.showAlert("Your attention please", response.data, "cant load maps");
+                });
 
+    }
 }]).directive('lazyLoad', function ($timeout) {
     return {
         restrict: 'A',

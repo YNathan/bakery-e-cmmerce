@@ -34,8 +34,9 @@
     <script src="./lf-ng-md-file-input/dist/lf-ng-md-file-input.js"></script>
 </head>
 
-<body ng-app="root">
-<md-toolbar style="position: fixed; min-height: 5%;max-height: 6%; background-color:#E6E6FA;" layout="row" layout-align="center center">
+<body ng-app="root" ng-controller="welcome">
+<md-toolbar style="position: fixed; min-height: 5%;max-height: 6%; background-color:#E6E6FA;" layout="row"
+            layout-align="center center">
     <md-button class="menu" ng-click="toggleLeft()" ng-if="isLoged()">
         <md-icon md-svg-icon="menu"></md-icon>
     </md-button>
@@ -61,12 +62,44 @@
     </md-input-container>
 </md-toolbar>
 <br>
-<p flex style="text-align: center; color: goldenrod; font-family: 'Brush Script MT'; font-size: 100px">Folie's Traiteur</p>
+<div layout-align="row">
+    <div flex>
+        <p style="text-align: center; color: goldenrod; font-family: 'Copperplate Gothic Light'; font-size: 50px">
+            Folie's Traiteur</p>
+    </div>
+    <div flex layout-align="center" id="map" style="height: 300px; width: 300px;"></div>
+</div>
+<hr>
+<div ng-cloak="" class="carddemoCardActionButtons">
+    <md-content class="md-padding" layout-xs="column" layout="row" style="background-color:transparent;">
+        <div flex-xs="" flex-gt-xs="50" layout="column"
+             ng-repeat="srcProfileImage in foodProfilePathesImages.availableOptions">
+            <md-card style="border-radius: 10px 10px 0 0">
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">{{srcProfileImage.foodName}}</span>
+                        <span class="md-subhead">{{srcProfileImage.price}}</span>
+                        <span class="md-subhead">{{srcProfileImage.descryption}}</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content layout="row" layout-align="space-between">
+                    <div class="md-media-xl card-media"></div>
+                    <img ng-src=/GET_IMAGE/{{srcProfileImage.foodId}}.jpg
+                         ng-click="houseClicked(srcProfileImage)" class="md-card-image" alt="Washed Out"
+                         style="border-radius: 10px 10px 0 0;">
+                </md-card-content>
+            </md-card>
+        </div>
+    </md-content>
+</div>
+
+
 <div class="container" layout="row" flex>
     <md-sidenav class="md-sidenav-left" md-component-id="left" md-disable-backdrop="" md-whiteframe="2"
                 style="background-color: #DDDDDD;">
         <md-toolbar class="md-theme-indigo md-padding" align="center">
-            <center><h1 class="md-toolbar-tools md-padding" align="center">{{dictionary.Dictionary[0].Menu}}</h1></center>
+            <center><h1 class="md-toolbar-tools md-padding" align="center">{{dictionary.Dictionary[0].Menu}}</h1>
+            </center>
         </md-toolbar>
         <md-content layout-margin="" align="center" style="background-color: #DDDDDD;">
             <md-button class="house" ng-click="goToHouse()">
