@@ -62,38 +62,50 @@
     </md-input-container>
 </md-toolbar>
 <br>
-<div layout-align="row">
-    <div flex>
-        <p style="text-align: center; color: goldenrod; font-family: 'Copperplate Gothic Light'; font-size: 50px">
+<br><br>
+<div layout="row"  layout-xs="column">
+    <div flex="20">
+        la la
+        <br>
+        la la
+        <br>
+        la la
+        <br>
+        la la
+    </div>
+    <div flex="70">
+        <p style="text-align: center; color: goldenrod; font-family: 'Copperplate Gothic Light'; font-size: 50px" ng-click="setUpPage()">
             Folie's Traiteur</p>
     </div>
-    <div flex layout-align="center" id="map" style="height: 300px; width: 300px;"></div>
+
+    <div flex id="map" style="max-height: 300px; max-width: 200px;border-radius: 10px 10px 0 0;"></div>
 </div>
 <hr>
-<div ng-cloak="" class="carddemoCardActionButtons">
-    <md-content class="md-padding" layout-xs="column" layout="row" style="background-color:transparent;">
-        <div flex-xs="" flex-gt-xs="50" layout="column"
-             ng-repeat="srcProfileImage in foodProfilePathesImages.availableOptions">
-            <md-card style="border-radius: 10px 10px 0 0">
-                <md-card-title>
-                    <md-card-title-text>
-                        <span class="md-headline">{{srcProfileImage.foodName}}</span>
-                        <span class="md-subhead">{{srcProfileImage.price}}</span>
-                        <span class="md-subhead">{{srcProfileImage.descryption}}</span>
-                    </md-card-title-text>
-                </md-card-title>
-                <md-card-content layout="row" layout-align="space-between">
-                    <div class="md-media-xl card-media"></div>
-                    <img ng-src=/GET_IMAGE/{{srcProfileImage.foodId}}.jpg
-                         ng-click="houseClicked(srcProfileImage)" class="md-card-image" alt="Washed Out"
-                         style="border-radius: 10px 10px 0 0;">
-                </md-card-content>
-            </md-card>
-        </div>
-    </md-content>
-</div>
+<section>
+    <div ng-cloak="" class="carddemoCardActionButtons">
+        <md-content class="md-padding" layout-xs="column" layout="row" style="background-color:transparent;">
+            <div flex-xs="" flex-gt-xs="50" layout="column"
+                 ng-repeat="srcProfileImage in foodProfilePathesImages.availableOptions">
+                <md-card style="border-radius: 10px 10px 0 0">
+                    <md-card-title>
+                        <md-card-title-text>
+                            {{srcProfileImage.foodName}}
+                            {{srcProfileImage.price}}
+                            {{srcProfileImage.descryption}}
+                        </md-card-title-text>
+                    </md-card-title>
+                    <md-card-content layout="row" layout-align="space-between">
+                        <div class="md-media-xl card-media"></div>
+                        <img ng-src=/GET_IMAGE/{{srcProfileImage.foodId}}.jpg
+                             ng-click="houseClicked(srcProfileImage)" class="md-card-image" alt="Washed Out"
+                             style="position: relative;top: 10px; left: 5px; right: 5px;max-height: 300px; max-length: 300px; border-radius: 10px 10px 0 0;">
+                    </md-card-content>
+                </md-card>
+            </div>
+        </md-content>
+    </div>
 
-
+</section>
 <div class="container" layout="row" flex>
     <md-sidenav class="md-sidenav-left" md-component-id="left" md-disable-backdrop="" md-whiteframe="2"
                 style="background-color: #DDDDDD;">

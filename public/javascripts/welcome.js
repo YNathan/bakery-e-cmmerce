@@ -124,7 +124,15 @@ app.controller('welcome', ['$scope', '$http', '$state', '$interval', '$mdDialog'
     })
 
 
-
+    $scope.setUpPage= function(){
+        $scope.foodProfilePathesImages = {
+            availableOptions: [],
+            selectedOption: {
+                id: '1',
+                imagesSource: 'default'
+            }
+        };
+    }
 // End Of Getting Repas Section
 
 
