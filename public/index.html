@@ -63,44 +63,37 @@
 </md-toolbar>
 <br>
 <br><br>
-<div layout="row"  layout-xs="column">
+<div layout="row" layout-xs="column">
     <div flex="20">
-        la la
+        aboute:
         <br>
-        la la
+        veuillez nous contacter au:
         <br>
-        la la
+        03-54565665
         <br>
-        la la
+        address : 79 bugrashove st, tel-aviv jaffa
     </div>
     <div flex="70">
-        <p style="text-align: center; color: goldenrod; font-family: 'Copperplate Gothic Light'; font-size: 50px" ng-click="setUpPage()">
+        <p style="text-align: center; color: goldenrod; font-family: 'Copperplate Gothic Light'; font-size: 50px"
+           ng-click="setUpPage()">
             Folie's Traiteur</p>
     </div>
 
     <div flex id="map" style="max-height: 300px; max-width: 200px;border-radius: 10px 10px 0 0;"></div>
 </div>
 <hr>
-<section>
+<section style=" overflow: auto;">
     <div ng-cloak="" class="carddemoCardActionButtons">
         <md-content class="md-padding" layout-xs="column" layout="row" style="background-color:transparent;">
             <div flex-xs="" flex-gt-xs="50" layout="column"
                  ng-repeat="srcProfileImage in foodProfilePathesImages.availableOptions">
-                <md-card style="border-radius: 10px 10px 0 0">
-                    <md-card-title>
-                        <md-card-title-text>
-                            {{srcProfileImage.foodName}}
-                            {{srcProfileImage.price}}
-                            {{srcProfileImage.descryption}}
-                        </md-card-title-text>
-                    </md-card-title>
-                    <md-card-content layout="row" layout-align="space-between">
-                        <div class="md-media-xl card-media"></div>
-                        <img ng-src=/GET_IMAGE/{{srcProfileImage.foodId}}.jpg
-                             ng-click="houseClicked(srcProfileImage)" class="md-card-image" alt="Washed Out"
-                             style="position: relative;top: 10px; left: 5px; right: 5px;max-height: 300px; max-length: 300px; border-radius: 10px 10px 0 0;">
-                    </md-card-content>
-                </md-card>
+                <p style="text-align: center; color: black; font-family: 'Copperplate Gothic Light'; font-size: 20px">
+                    {{srcProfileImage.foodName}}.</p>
+                <div ng-if="srcProfileImage.descryption != null"><p style="text-align: center; color: black; font-family: 'Copperplate Gothic Light'; font-size: 14px">{{srcProfileImage.descryption}}</p></div>
+                <img ng-src=/GET_IMAGE/{{srcProfileImage.foodId}}.jpg
+                     ng-click="houseClicked(srcProfileImage)" class="md-card-image" alt="Washed Out"
+                style="position: relative;height: 200px; length: 200px; border-radius: 10px 10px 0 0;">
+                <div layout-align="right" style="font-size: 15px;font-family: 'Copperplate Gothic Light';">{{srcProfileImage.price}} <md-icon md-svg-icon="ils" style="height: 15px;width: 15px;"></md-icon></div>
             </div>
         </md-content>
     </div>
