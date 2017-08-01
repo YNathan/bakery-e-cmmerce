@@ -148,6 +148,9 @@ app.controller('welcome', ['$scope', '$http', '$state', '$interval', '$mdDialog'
     $rootScope.goToNewHouse = function () {
         $state.go('NewOrEditHouse');
     }
+    $rootScope.goToUploadFood = function () {
+        $state.go('UploadFood');
+    }
     $rootScope.goToSystemManager = function () {
         $state.go('Manager');
     }

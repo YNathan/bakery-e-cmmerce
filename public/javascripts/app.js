@@ -46,6 +46,11 @@ app.config(function ($stateProvider, $urlRouterProvider, $mdIconProvider, $mdToa
             templateUrl: "template/NewOrEditHouse.html",
             controller: 'neworedithouse'
         })
+        .state('UploadFood', {
+            url: "/uploadfood",
+            templateUrl: "template/UploadFood.html",
+            controller: 'uploadfood'
+        })
         .state('Copyright', {
             url: "/Copyright",
             templateUrl: "template/Copyright.html",

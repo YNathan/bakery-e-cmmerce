@@ -25,7 +25,7 @@ public class setterDB {
     private static String TABLE_USERS_NAME = "shamayim.users";
     private static String TABLE_HOUSE_NAME = "shamayim.house";
     private static String TABLE_PERMITED_VIEW_NAME = "shamayim.permissions_view";
-    private static String TABLE_FOODNAME = "folies.food";
+    private static String TABLE_FOOD_NAME = "folies.food";
     private static String DATA_BASE_USER_NAME = "root";
     private static String DATA_BASE_PASSWORD_NAME = Application.szDbPassword;
     private WebResponce webResponce = new WebResponce();
@@ -62,7 +62,6 @@ public class setterDB {
         webResponce.setReason("Delete User Success. המשתמש הוסר בהצלחה");
         return webResponce;
     }
-
 
 
     /**
@@ -672,6 +671,56 @@ public class setterDB {
         }
         // Commit changes;
         commit();
+    }
+
+    /**
+     * update a house financial details into the data-base
+     *
+     * @return
+     * @throws Exception
+     */
+    public WebResponce insertNewFood(FoodEntity m_foodEntity) {
+        WebResponce webResponce = new WebResponce();
+        // INFO
+        play.Logger.info(" " + new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime())
+                + " <SETTER> insert new food : " + m_foodEntity.toString());
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            connect = DriverManager.getConnection("jdbc:mysql://localhost/folies?user=" + DATA_BASE_USER_NAME
+                    + "&password=" + DATA_BASE_PASSWORD_NAME);
+            preparedStatement = connect.prepareStatement("insert into " + TABLE_FOOD_NAME
+                    + " (foodName,descryption,price,isParve,isHalavi,isBassari,isVegetarian,isVegan,isInKeytring,isInSucurSal) values (?,?,?,?,?,?,?,?,?,?)");
+            play.Logger.info(" Insert food to the data-base");
+            preparedStatement.setString(1, m_foodEntity.getFoodName());
+            preparedStatement.setString(2, m_foodEntity.getDescryption());
+            preparedStatement.setFloat(3, m_foodEntity.getPrice());
+            preparedStatement.setBoolean(4, m_foodEntity.isParve());
+            preparedStatement.setBoolean(5, m_foodEntity.isHalavi());
+            preparedStatement.setBoolean(6, m_foodEntity.isBassari());
+            preparedStatement.setBoolean(7, m_foodEntity.isVegetarian());
+            preparedStatement.setBoolean(8, m_foodEntity.isVegan());
+            preparedStatement.setBoolean(9, m_foodEntity.isInKeytring());
+            preparedStatement.setBoolean(10, m_foodEntity.isInSucurSal());
+            preparedStatement.executeUpdate();
+            System.out.println("registered successfully!");
+            System.out.println("============================");
+            webResponce.setReason("registered successfully!");
+            webResponce.seteSuccessFailed(ESuccessFailed.SUCCESS);
+        } catch (Exception e) {
+            System.out.println("a problem occurred when try to registered");
+            System.out.println("==========================================");
+            webResponce.setReason("a problem occurred when try to registered");
+            webResponce.seteSuccessFailed(ESuccessFailed.FAILED);
+            play.Logger.info("<setterDB> " + e.getMessage());
+        } finally {
+            // Closing the resultSet
+            close();
+        }
+        // Commit changes;
+        commit();
+        return webResponce;
+
     }
 
 

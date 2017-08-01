@@ -27,8 +27,8 @@ public class User {
         this.szEmail = szEmail;
         this.szPassword = szPassword;
         this.szUserId = szUserId;
-        //this.bPermissionManager = convertFromStringDataBaseFormatToBoolean(szPermission_manager);
-        //this.bPermissionView = convertFromStringDataBaseFormatToBoolean(szPermission_view);
+        this.bPermissionManager = convertFromStringDataBaseFormatToBoolean(szPermission_manager);
+        this.bPermissionView = convertFromStringDataBaseFormatToBoolean(szPermission_view);
         housePermitedToViews = new ArrayList<>();
     }
 

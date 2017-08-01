@@ -172,7 +172,6 @@ app.controller('house', ['$scope', '$http', '$state', '$interval', '$mdDialog', 
                 });
     }
 
-    getHouseProfileImages();
 
 
     // Logic methods section

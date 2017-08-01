@@ -1,0 +1,68 @@
+<md-content class="md-padding"
+            style="background: url('../images/background.jpg');"/><!-- ng-if="!isNewHouseChecked && houseWasChosen"-->
+
+<div layout="row" layout-sm="column" md-colors="{color: 'red-A100', border-color: 'primary-600'}"
+     style="background-color: #DDDDDD;">
+    <form ng-submit="insertFood()" class="md-padding">
+        <md-input-container>
+            <label>nom du manger sur le site</label>
+            <input type="text" ng-model="foodToUpload.foodName" name="text" required/>
+        </md-input-container>
+
+        <md-input-container>
+            <label> description du manger :</label>
+            <input type="text" ng-model="foodToUpload.descryption" name="text" required/>
+        </md-input-container>
+
+        <md-input-container>
+            <label> prix :</label>
+            <input type="text" ng-model="foodToUpload.price" name="text" required/>
+        </md-input-container>
+
+        <fieldset class="standard">
+            <legend>kashrout
+            </legend>
+            <div layout="row" layout-wrap flex>
+                <div flex="50">
+                    <md-checkbox ng-model="foodToUpload.bassari" ng-change="check('bassari')">bassari
+                    </md-checkbox>
+                    <md-checkbox ng-model="foodToUpload.parve" ng-change="check('parve')">parve
+                    </md-checkbox>
+                    <md-checkbox ng-model="foodToUpload.halavi" ng-change="check('halavi')">halavi
+                    </md-checkbox>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="standard">
+            <legend>Detaille De Nouritoure
+            </legend>
+            <div layout="row" layout-wrap flex>
+                <div flex="50">
+                    <md-checkbox ng-model="foodToUpload.vegan">vegan
+                    </md-checkbox>
+                    <md-checkbox ng-model="foodToUpload.vegetarian">vegetarian
+                    </md-checkbox>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="standard">
+            <legend>Emplacment
+            </legend>
+            <div layout="row" layout-wrap flex>
+                <div flex="50">
+                    <md-checkbox ng-model="foodToUpload.inKeytring"> en commend que par keytring
+                    </md-checkbox>
+                    <md-checkbox ng-model="foodToUpload.inSucurSal">en sucursal
+                    </md-checkbox>
+                </div>
+            </div>
+        </fieldset>
+        <center>
+            <md-input-container>
+                <md-button class="md-raised md-primary" type="submit" id="submit">שמור
+                </md-button>
+            </md-input-container>
+        </center>
+    </form>
+</div>
+</md-content>

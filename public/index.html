@@ -24,6 +24,7 @@
     <script src="javascripts/ShamayimService.js" type="text/javascript"></script>
     <script src="javascripts/welcome.js" type="text/javascript"></script>
     <script src="javascripts/manager.js" type="text/javascript"></script>
+    <script src="javascripts/UploadFood.js" type="text/javascript"></script>
 
     <!-- For Google Maps-->
     <script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>
@@ -120,6 +121,11 @@
             <md-button ng-if="isManager()" class="NewHouse" ng-click="goToNewHouse()">
                 <md-icon md-svg-icon="home"></md-icon>
                 <div>{{dictionary.Dictionary[0].NewHouse}}</div>
+            </md-button>
+            </br>
+            <md-button ng-if="isManager()" class="NewHouse" ng-click="goToUploadFood()">
+                <md-icon md-svg-icon="home"></md-icon>
+                <div>upload food</div>
             </md-button>
             </br>
             <md-button ng-if="isManager()" class="NewHouse" ng-click="goToSystemManager()">

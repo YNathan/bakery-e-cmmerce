@@ -29,8 +29,6 @@ public class setter {
     private static FileGetter fileGetter = new FileGetter();
 
 
-
-
     /**
      * Inserting new house.
      *
@@ -427,4 +425,47 @@ public class setter {
             return false;
         }
     }
+
+
+    /**
+     * Inserting house general details.
+     *
+     * @return
+     */
+    public static Result insertFoodEntity() {
+        webResponce = new WebResponce();
+        JsonNode json = request().body().asJson();
+        if (json == null) {
+            return badRequest("Expecting Json data");
+        } else {
+            House houseToRegistre = new House();
+            FoodEntity foodEntityToRegistre = new FoodEntity();
+            try {
+                System.out.println(json.toString());
+                foodEntityToRegistre.setFoodName(json.findPath("foodName").asText());
+                foodEntityToRegistre.setDescryption(json.findPath("descryption").asText());
+                foodEntityToRegistre.setPrice((float) json.findPath("price").asDouble());
+                foodEntityToRegistre.setBassari(json.findPath("bassari").asBoolean());
+                foodEntityToRegistre.setHalavi(json.findPath("halavi").asBoolean());
+                foodEntityToRegistre.setParve(json.findPath("parve").asBoolean());
+                foodEntityToRegistre.setVegetarian(json.findPath("vegetarian").asBoolean());
+                foodEntityToRegistre.setVegan(json.findPath("vegan").asBoolean());
+                foodEntityToRegistre.setInSucurSal(json.findPath("inSucurSal").asBoolean());
+                foodEntityToRegistre.setInKeytring(json.findPath("inKeytring").asBoolean());
+
+            } catch (Exception e) {
+                webResponce.seteSuccessFailed(ESuccessFailed.FAILED);
+                webResponce.setReason("Missing parameter the system did'nt save the details ,חסר פרטים המערכת לא שמרה ת הנתונים" + houseToRegistre.toString());
+                e.printStackTrace();
+                return badRequest(webResponce.toJson());
+            }
+            webResponce = setterBL.insertNewFood(foodEntityToRegistre);
+            if (webResponce.getSuccessFailed() == ESuccessFailed.FAILED) {
+                System.out.println(webResponce.toString());
+                return badRequest(webResponce.toJson());
+            }
+            return ok(webResponce.toJson());
+        }
+    }
+
 }

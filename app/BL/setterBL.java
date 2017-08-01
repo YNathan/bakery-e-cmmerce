@@ -179,7 +179,11 @@ public class setterBL {
         return fileSetter.setHouseProfilePicture(szHouseName, pictures);
     }
 
-
+    public WebResponce insertNewFood(FoodEntity m_foodEntity) {
+        webResponce = new WebResponce();
+        webResponce = setterDB.insertNewFood(m_foodEntity);
+        return webResponce;
+    }
 
 
 
