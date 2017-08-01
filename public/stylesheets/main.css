@@ -132,6 +132,14 @@ ng-scope.btn:hover {
 .myFont {
 	color: #333333;
 	font-family: 'Bitter', serif;
+	font-size: 20px;
+	font-weight: normal;
+	line-height: 20px;
+	margin: 0 0 54px;
+}
+.myFontTitle {
+	color: #333333;
+	font-family: 'Bitter', serif;
 	font-size: 25px;
 	font-weight: normal;
 	line-height: 54px;
