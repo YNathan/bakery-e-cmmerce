@@ -687,8 +687,8 @@ public class setterDB {
 
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            connect = DriverManager.getConnection("jdbc:mysql://localhost/folies?user=" + DATA_BASE_USER_NAME
-                    + "&password=" + DATA_BASE_PASSWORD_NAME);
+            connect = DriverManager.getConnection("jdbc:mysql://localhost/Folies?user=" + DATA_BASE_USER_NAME
+                    + "&password=sh123456");
             preparedStatement = connect.prepareStatement("insert into " + TABLE_FOOD_NAME
                     + " (foodName,descryption,price,isParve,isHalavi,isBassari,isVegetarian,isVegan,isInKeytring,isInSucurSal) values (?,?,?,?,?,?,?,?,?,?)");
             play.Logger.info(" Insert food to the data-base");

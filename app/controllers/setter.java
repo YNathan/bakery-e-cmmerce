@@ -2,14 +2,15 @@ package controllers;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Iterator;
 import java.util.List;
 
 import File.FileGetter;
 import BL.setterBL;
 import Entity.*;
 import com.fasterxml.jackson.databind.JsonNode;
+import play.libs.Json;
 import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Results;
@@ -428,17 +429,25 @@ public class setter {
 
 
     /**
-     * Inserting house general details.
+     * Inserting house general details.Work
      *
      * @return
      */
     public static Result insertFoodEntity() {
         webResponce = new WebResponce();
-        JsonNode json = request().body().asJson();
+        Http.MultipartFormData body = request().body().asMultipartFormData();
+        List<Http.MultipartFormData.FilePart> foodPictures = new ArrayList<>();
+        if (body != null) {
+            foodPictures = body.getFiles();
+            for (Http.MultipartFormData.FilePart currPictures : foodPictures) {
+                System.out.println(currPictures.getFile());
+            }
+        }
+        String szFoodEntity = body.asFormUrlEncoded().get("foodToUpload")[0].toString();
+        JsonNode json = Json.parse(szFoodEntity.toString());
         if (json == null) {
             return badRequest("Expecting Json data");
         } else {
-            House houseToRegistre = new House();
             FoodEntity foodEntityToRegistre = new FoodEntity();
             try {
                 System.out.println(json.toString());
@@ -455,11 +464,19 @@ public class setter {
 
             } catch (Exception e) {
                 webResponce.seteSuccessFailed(ESuccessFailed.FAILED);
-                webResponce.setReason("Missing parameter the system did'nt save the details ,חסר פרטים המערכת לא שמרה ת הנתונים" + houseToRegistre.toString());
+                webResponce.setReason("Missing parameter the system did'nt save the details ,חסר פרטים המערכת לא שמרה ת הנתונים" + foodEntityToRegistre.toString());
                 e.printStackTrace();
                 return badRequest(webResponce.toJson());
             }
-            webResponce = setterBL.insertNewFood(foodEntityToRegistre);
+
+            try {
+                webResponce = setterBL.insertNewFood(foodEntityToRegistre, foodPictures);
+            } catch (IOException e) {
+                webResponce.seteSuccessFailed(ESuccessFailed.FAILED);
+                webResponce.setReason("An Errore has occured when try to save pictures for food name" + foodEntityToRegistre.getFoodName());
+                e.printStackTrace();
+                return badRequest(webResponce.toJson());
+            }
             if (webResponce.getSuccessFailed() == ESuccessFailed.FAILED) {
                 System.out.println(webResponce.toString());
                 return badRequest(webResponce.toJson());
@@ -467,5 +484,4 @@ public class setter {
             return ok(webResponce.toJson());
         }
     }
-
 }

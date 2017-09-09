@@ -1,5 +1,4 @@
 app.controller('uploadfood', ['$scope', '$http', '$state', '$interval', '$mdDialog', '$mdSidenav', 'ShamayimFunctions', '$rootScope', function ($scope, $http, $state, $interval, $mdDialog, $mdSidenav, ShamayimFunctions, $rootScope) {
-    $scope.files;
     $scope.strCaptionDragAndDrop = "Drag & drop files here...";
     // Just print kind of 'hay message'
     $scope.message = 'M. ' + ShamayimFunctions.getCookie("username");
@@ -34,7 +33,7 @@ app.controller('uploadfood', ['$scope', '$http', '$state', '$interval', '$mdDial
     $scope.inSucurSal = false;
     $scope.bassari = false;
     $scope.descryption = null;
-
+    $scope.files;
     $scope.foodToUpload = {
         "foodName": "",
         "price": 0.0,
@@ -46,6 +45,31 @@ app.controller('uploadfood', ['$scope', '$http', '$state', '$interval', '$mdDial
         "inSucurSal": false,
         "bassari": false,
         "descryption": ""
+    }
+
+
+    // House Profile Pictures Section
+    $scope.$watch('files.length', function (newVal, oldVal) {
+        console.log($scope.files);
+    });
+
+    $scope.updatePictures = function () {
+        var formData = new FormData();
+        for (var index = 0; index < $scope.files.length; index++) {
+            console.log($scope.files[index].lfFile);
+            formData.append('files[]', $scope.files[index].lfFile);
+        }
+
+        formData.append('foodToUpload',JSON.stringify($scope.foodToUpload));
+        $http.post('/INSERT_FOOD', formData,{
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}
+        }).then(function (result) {
+            //alert(result);
+        }, function (err) {
+            //alert(err);
+        });
+
     }
 
     // Get information concerning the
@@ -120,4 +144,6 @@ app.controller('uploadfood', ['$scope', '$http', '$state', '$interval', '$mdDial
         }
         return $scope.parve;
     }
+
+
 }]);

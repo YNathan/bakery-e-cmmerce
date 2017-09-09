@@ -70,6 +70,25 @@ app.controller('welcome', ['$scope', '$http', '$state', '$interval', '$mdDialog'
                 });
     }
 
+    // Get Profile Images
+    $scope.getKeytringFoodProfileImages = function() {
+        $http.get('/GET_FOOD/'+'Keytring')
+            .then(function successCallback(response) {
+                    $scope.foodProfilePathesImages.availableOptions = [];
+                    angular.forEach(response.data, function (value, key) {
+                        itemName = {
+                            id: key,
+                            imagesSource: value
+                        }
+                        $scope.foodProfilePathesImages.availableOptions.push(itemName.imagesSource);
+                    }, $scope.foodProfilePathesImages);
+
+                },
+                function error(response) {
+                    showAlert("Your attention please", response.data, "cant load food");
+                });
+    }
+
     $scope.Repas = {
         availableOptions: [],
         selectedOption: {
@@ -111,6 +130,8 @@ app.controller('welcome', ['$scope', '$http', '$state', '$interval', '$mdDialog'
         ShamayimFunctions.setLanguageCookie(szLanguageName);
 
     }
+
+
 
 
     getLanguage("עברית");

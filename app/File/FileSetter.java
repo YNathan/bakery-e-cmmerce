@@ -10,6 +10,8 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.Iterator;
 import java.util.List;
 
@@ -58,6 +60,24 @@ public class FileSetter {
         return webResponce;
     }
 
+    public WebResponce setFoodFiles(String szHouseName, List<Http.MultipartFormData.FilePart> pictures) {
+        Iterator<Http.MultipartFormData.FilePart> filePartIterator = pictures.iterator();
+        while (filePartIterator.hasNext()) {
+            Http.MultipartFormData.FilePart picture = filePartIterator.next();
+            if (picture != null) {
+                File sourceFile = picture.getFile();
+                System.out.println(sourceFile);
+                String szDestinationFilePath = System.getenv("FOLIES_PICTS") + "\\" + szHouseName;
+                File dest = new File(szDestinationFilePath);
+                saveAndTryToResizeImg(sourceFile, szDestinationFilePath, dest);
+            } else {
+                webResponce.seteSuccessFailed(ESuccessFailed.FAILED);
+                webResponce.setReason("Error When Try To Upload A Null File To The Server");
+            }
+        }
+        return webResponce;
+    }
+
     private void saveAndTryToResizeImg(File sourceFile, String szDestinationFilePath, File dest) {
         try {
             play.Logger.info("<SETTER> save profile picture on file");
@@ -73,6 +93,23 @@ public class FileSetter {
             play.Logger.info(e.getMessage());
         }
     }
+
+    private void saveImg(File sourceFile, String szDestinationFilePath, File dest) {
+        try {
+            play.Logger.info("<SETTER> save food picture on file");
+            setterBL.copyFile(sourceFile, dest);
+            if (getTypeFile(szDestinationFilePath) != null) {
+                resizePhotoAndWrite(szDestinationFilePath, dest);
+            }
+            webResponce.setReason("Success Upload File To the Sever");
+        } catch (IOException e) {
+            e.printStackTrace();
+            webResponce.seteSuccessFailed(ESuccessFailed.FAILED);
+            webResponce.setReason("Error When Upload File To Server");
+            play.Logger.info(e.getMessage());
+        }
+    }
+
 
     public WebResponce setHouseDocuments(String szHouseName, List<Http.MultipartFormData.FilePart> pictures) {
         Iterator<Http.MultipartFormData.FilePart> filePartIterator = pictures.iterator();
@@ -110,7 +147,7 @@ public class FileSetter {
         return webResponce;
     }
 
-    private String getTypeFile(String szFile) {
+    public String getTypeFile(String szFile) {
         String szTypeToReturn = null;
         if (szFile.toLowerCase().contains(".jpg")) {
             szTypeToReturn = ".jpg";
@@ -123,6 +160,20 @@ public class FileSetter {
     }
 
     private void resizePhotoAndWrite(String szFullFilePath, File fileToReturn) {
+        BufferedImage bimg = null;
+        try {
+            bimg = ImageIO.read(fileToReturn);
+            BufferedImage newImage = resizeImage(bimg, bimg.getType());
+            File outputfile = new File(szFullFilePath);
+            ImageIO.write(newImage, getTypeFile(szFullFilePath), outputfile);
+            System.out.println("save picture after name:" + szFullFilePath);
+            System.out.println("Get Picture " + szFullFilePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void WritePhotoAndWrite(String szFullFilePath, File fileToReturn) {
         BufferedImage bimg = null;
         try {
             bimg = ImageIO.read(fileToReturn);
@@ -154,7 +205,15 @@ public class FileSetter {
     }
 
     private static void deleteHouse(House m_houseToDelete) {
-        String szPathFolderHouse = System.getProperty("user.dir") ;
+        String szPathFolderHouse = System.getProperty("user.dir");
+    }
+
+    // Last
+    public static void saveToFile(File file,String szFileDst,String szFileType) throws IOException {
+        Files.copy(file.toPath(),
+                (new File(szFileDst)).toPath(),
+                StandardCopyOption.REPLACE_EXISTING);
+
     }
 
 }

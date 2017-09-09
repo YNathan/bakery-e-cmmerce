@@ -1,5 +1,6 @@
 package BL;
 
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.ArrayList;
 
@@ -12,6 +13,8 @@ import DB.getterDB;
 import DB.setterDB;
 import com.fasterxml.jackson.databind.JsonNode;
 import play.mvc.Http;
+
+import javax.imageio.ImageIO;
 
 
 /**
@@ -127,7 +130,6 @@ public class setterBL {
     }
 
 
-
     /**
      * Copy file from old location to a new location in the system we will use
      * that for save the profile picture who we get from the client to the local
@@ -179,12 +181,37 @@ public class setterBL {
         return fileSetter.setHouseProfilePicture(szHouseName, pictures);
     }
 
-    public WebResponce insertNewFood(FoodEntity m_foodEntity) {
+    public WebResponce insertNewFood(FoodEntity m_foodEntity, List<Http.MultipartFormData.FilePart> foodPictures) throws IOException {
         webResponce = new WebResponce();
+        int nFoodIdToReturn = -1;
+
+        // insert data to data base
         webResponce = setterDB.insertNewFood(m_foodEntity);
+
+        // insert pictures files
+        nFoodIdToReturn = getterDB.getFoodIdByName(m_foodEntity.getFoodName());
+
+        if(nFoodIdToReturn != -1){
+            saveFoodFiles(foodPictures, nFoodIdToReturn);
+        }
+
         return webResponce;
     }
 
+    private void saveFoodFiles(List<Http.MultipartFormData.FilePart> foodPictures, int nFoodIdToReturn) throws IOException {
+        int nSumOfFileCounter = 0;
+        ArrayList<File> foodPicturesToSave = new ArrayList<>();
+        for (Http.MultipartFormData.FilePart currFile : foodPictures) {
+            String dstFileName = null;
+            if (nSumOfFileCounter == 0) {
+                dstFileName = System.getenv("FOLIES_PICTS") + "\\" + nFoodIdToReturn + fileSetter.getTypeFile(currFile.getFilename());
+            } else {
+                dstFileName = System.getenv("FOLIES_PICTS") + "\\" + nFoodIdToReturn + "_" + String.valueOf(nSumOfFileCounter) + fileSetter.getTypeFile(currFile.getFilename());
+            }
+            fileSetter.saveToFile(currFile.getFile(), dstFileName, fileSetter.getTypeFile(currFile.getFilename()));
+            nSumOfFileCounter++;
+        }
+    }
 
 
 }

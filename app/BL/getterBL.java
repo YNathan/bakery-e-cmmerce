@@ -274,6 +274,9 @@ public class getterBL {
                         matchFoodToReturn.add(currentFoodEntity);
                     }
                     break;
+                case "Keytring":
+                        matchFoodToReturn.add(currentFoodEntity);
+                    break;
                 default:
                     if (currentFoodEntity.isBassari()) {
                         matchFoodToReturn.add(currentFoodEntity);

@@ -14,6 +14,7 @@
     <script src="bower_components\angular-material\angular-material.min.js"></script>
     <script src="bower_components\material-angular-paging\build\dist.min.js"></script>
 
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="javascripts/angular-ui-router.min.js" type="text/javascript"></script>
     <script src="javascripts/app.js" type="text/javascript"></script>
     <script src="javascripts/LoginRegister.js" type="text/javascript"></script>
@@ -52,7 +53,7 @@
             </md-option>
         </md-select>
     </md-input-container>
-    <p flex style=" color:black; font-family: 'Brush Script MT'">Keytring</p>
+    <p flex style=" color:black; font-family: 'Brush Script MT'" ng-click="getKeytringFoodProfileImages()">Keytring</p>
     <p flex style=" color:black; font-family: 'Brush Script MT'">Buisnes VIP</p>
     <md-input-container>
         <md-select placeholder="Language/שפה" ng-model="Languages.selectedOption">
@@ -82,70 +83,76 @@
 
     <div flex id="map" style="max-height: 300px; max-width: 200px;border-radius: 10px 10px 0 0;"></div>
 </div>
-<hr>
-<section style=" overflow: auto;">
-    <div ng-cloak="" class="carddemoCardActionButtons">
-        <md-content class="md-padding" layout-xs="column" layout="row" style="background-color:transparent;">
-            <div flex-xs="" flex-gt-xs="50" layout="column"
-                 ng-repeat="srcProfileImage in foodProfilePathesImages.availableOptions">
+<div layout="row" style="height: 65%; overflow: auto">
+    <div flex="5"></div>
+    <div flex="90" layout="column">
+        <div layout="row"
+             style="display: flex; flex-wrap: wrap; align-items: flex-start; align-content: flex-start;align-content: flex-start">
+            <div ng-repeat="srcProfileImage in foodProfilePathesImages.availableOptions">
                 <p style="text-align: center; color: black; font-family: 'Copperplate Gothic Light'; font-size: 20px">
                     {{srcProfileImage.foodName}}.</p>
-                <div ng-if="srcProfileImage.descryption != null"><p style="text-align: center; color: black; font-family: 'Copperplate Gothic Light'; font-size: 14px">{{srcProfileImage.descryption}}</p></div>
-                <img ng-src=/GET_IMAGE/{{srcProfileImage.foodId}}.jpg
-                     ng-click="houseClicked(srcProfileImage)" class="md-card-image" alt="Washed Out"
-                style="position: relative;height: 200px; length: 200px; border-radius: 10px 10px 0 0;">
-                <div layout-align="right" style="font-size: 15px;font-family: 'Copperplate Gothic Light';">{{srcProfileImage.price}} <md-icon md-svg-icon="ils" style="height: 15px;width: 15px;"></md-icon></div>
+                <div ng-if="srcProfileImage.descryption != null" style="width: 20em;">
+                    <p style="text-align: center; color: black; font-family: 'Kalam'; font-size: 18px">
+                        {{srcProfileImage.descryption}}</p>
+                </div>
+                        <img ng-src=/GET_IMAGE/{{srcProfileImage.foodId}}.jpg
+                             ng-click="houseClicked(srcProfileImage)" class="md-card-image" alt="Washed Out"
+                             style="position: relative;height: 200px; length: 200px; border-radius: 10px 10px 0 0;">
+                        <div layout-align="right" style="font-size: 15px;font-family: 'Copperplate Gothic Light';">
+                            {{srcProfileImage.price}}
+                            <md-icon md-svg-icon="ils" style="height: 15px;width: 15px;"></md-icon>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </md-content>
-    </div>
-
-</section>
-<div class="container" layout="row" flex>
-    <md-sidenav class="md-sidenav-left" md-component-id="left" md-disable-backdrop="" md-whiteframe="2"
-                style="background-color: #DDDDDD;">
-        <md-toolbar class="md-theme-indigo md-padding" align="center">
-            <center><h1 class="md-toolbar-tools md-padding" align="center">{{dictionary.Dictionary[0].Menu}}</h1>
-            </center>
-        </md-toolbar>
-        <md-content layout-margin="" align="center" style="background-color: #DDDDDD;">
-            <md-button class="house" ng-click="goToHouse()">
-                <md-icon md-svg-icon="home"></md-icon>
-                <div>{{dictionary.Dictionary[0].House}}</div>
-            </md-button>
-            </br>
-            <md-button class="houses" ng-click="goToHouses()">
-                <md-icon md-svg-icon="home"></md-icon>
-                <div> {{dictionary.Dictionary[0].ManageHouses}}</div>
-            </md-button>
-            </br>
-            <md-button ng-if="isManager()" class="NewHouse" ng-click="goToNewHouse()">
-                <md-icon md-svg-icon="home"></md-icon>
-                <div>{{dictionary.Dictionary[0].NewHouse}}</div>
-            </md-button>
-            </br>
-            <md-button ng-if="isManager()" class="NewHouse" ng-click="goToUploadFood()">
-                <md-icon md-svg-icon="home"></md-icon>
-                <div>upload food</div>
-            </md-button>
-            </br>
-            <md-button ng-if="isManager()" class="NewHouse" ng-click="goToSystemManager()">
-                <md-icon md-svg-icon="account_circle"></md-icon>
-                <div>{{dictionary.Dictionary[0].SystemManager}}</div>
-            </md-button>
-            </br>
-            <md-button class="copyright" ng-click="Copyright()">
-                <md-icon md-svg-icon="copyright"></md-icon>
-                <div>{{dictionary.Dictionary[0].Copyright}}</div>
-            </md-button>
-            </br>
-            <md-button class="logout" ng-click="logout()">
-                <md-icon md-svg-icon="logout"></md-icon>
-                <div>{{dictionary.Dictionary[0].Logout}}</div>
-            </md-button>
-            </br>
-        </md-content>
-    </md-sidenav>
-</div>
-<div ui-view dir="{{$root.pageDirection}}"></div>
+        </div>
+        <div class="container" layout="row" flex>
+            <md-sidenav class="md-sidenav-left" md-component-id="left" md-disable-backdrop="" md-whiteframe="2"
+                        style="background-color: #DDDDDD;">
+                <md-toolbar class="md-theme-indigo md-padding" align="center">
+                    <center><h1 class="md-toolbar-tools md-padding" align="center">
+                        {{dictionary.Dictionary[0].Menu}}</h1>
+                    </center>
+                </md-toolbar>
+                <md-content layout-margin="" align="center" style="background-color: #DDDDDD;">
+                    <md-button class="house" ng-click="goToHouse()">
+                        <md-icon md-svg-icon="home"></md-icon>
+                        <div>{{dictionary.Dictionary[0].House}}</div>
+                    </md-button>
+                    </br>
+                    <md-button class="houses" ng-click="goToHouses()">
+                        <md-icon md-svg-icon="home"></md-icon>
+                        <div> {{dictionary.Dictionary[0].ManageHouses}}</div>
+                    </md-button>
+                    </br>
+                    <md-button ng-if="isManager()" class="NewHouse" ng-click="goToNewHouse()">
+                        <md-icon md-svg-icon="home"></md-icon>
+                        <div>{{dictionary.Dictionary[0].NewHouse}}</div>
+                    </md-button>
+                    </br>
+                    <md-button ng-if="isManager()" class="NewHouse" ng-click="goToUploadFood()">
+                        <md-icon md-svg-icon="home"></md-icon>
+                        <div>upload food</div>
+                    </md-button>
+                    </br>
+                    <md-button ng-if="isManager()" class="NewHouse" ng-click="goToSystemManager()">
+                        <md-icon md-svg-icon="account_circle"></md-icon>
+                        <div>{{dictionary.Dictionary[0].SystemManager}}</div>
+                    </md-button>
+                    </br>
+                    <md-button class="copyright" ng-click="Copyright()">
+                        <md-icon md-svg-icon="copyright"></md-icon>
+                        <div>{{dictionary.Dictionary[0].Copyright}}</div>
+                    </md-button>
+                    </br>
+                    <md-button class="logout" ng-click="logout()">
+                        <md-icon md-svg-icon="logout"></md-icon>
+                        <div>{{dictionary.Dictionary[0].Logout}}</div>
+                    </md-button>
+                    </br>
+                </md-content>
+            </md-sidenav>
+        </div>
+        <div ui-view dir="{{$root.pageDirection}}"></div>
 </body>
 </html>
