@@ -21,7 +21,6 @@
     <script src="javascripts/Houses.js" type="text/javascript"></script>
     <script src="javascripts/House.js" type="text/javascript"></script>
     <script src="javascripts/Copyright.js" type="text/javascript"></script>
-    <script src="javascripts/NewOrEditHouse.js" type="text/javascript"></script>
     <script src="javascripts/ShamayimService.js" type="text/javascript"></script>
     <script src="javascripts/welcome.js" type="text/javascript"></script>
     <script src="javascripts/manager.js" type="text/javascript"></script>
@@ -123,11 +122,6 @@
                     <md-button class="houses" ng-click="goToHouses()">
                         <md-icon md-svg-icon="home"></md-icon>
                         <div> {{dictionary.Dictionary[0].ManageHouses}}</div>
-                    </md-button>
-                    </br>
-                    <md-button ng-if="isManager()" class="NewHouse" ng-click="goToNewHouse()">
-                        <md-icon md-svg-icon="home"></md-icon>
-                        <div>{{dictionary.Dictionary[0].NewHouse}}</div>
                     </md-button>
                     </br>
                     <md-button ng-if="isManager()" class="NewHouse" ng-click="goToUploadFood()">

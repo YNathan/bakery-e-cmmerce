@@ -70,9 +70,6 @@ app.controller('index', ['$scope', '$http', '$filter', '$state', '$mdDialog', '$
     $scope.goToHouses = function () {
         $state.go('Houses');
     }
-    $scope.goToNewHouse = function () {
-        $state.go('NewOrEditHouse');
-    }
     $scope.goToHouse = function () {
         $state.go('House');
     }

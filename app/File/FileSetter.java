@@ -42,110 +42,15 @@ public class FileSetter {
         }
     }
 
-    public WebResponce setFiles(String szHouseName, List<Http.MultipartFormData.FilePart> pictures) {
-        Iterator<Http.MultipartFormData.FilePart> filePartIterator = pictures.iterator();
-        while (filePartIterator.hasNext()) {
-            Http.MultipartFormData.FilePart picture = filePartIterator.next();
-            if (picture != null) {
-                File sourceFile = picture.getFile();
-                System.out.println(sourceFile);
-                String szDestinationFilePath = System.getProperty("user.dir") + "\\HousesDocuments\\" + szHouseName + "\\" + picture.getFilename();
-                File dest = new File(szDestinationFilePath);
-                saveAndTryToResizeImg(sourceFile, szDestinationFilePath, dest);
-            } else {
-                webResponce.seteSuccessFailed(ESuccessFailed.FAILED);
-                webResponce.setReason("Error When Try To Upload A Null File To The Server");
-            }
-        }
-        return webResponce;
-    }
-
-    public WebResponce setFoodFiles(String szHouseName, List<Http.MultipartFormData.FilePart> pictures) {
-        Iterator<Http.MultipartFormData.FilePart> filePartIterator = pictures.iterator();
-        while (filePartIterator.hasNext()) {
-            Http.MultipartFormData.FilePart picture = filePartIterator.next();
-            if (picture != null) {
-                File sourceFile = picture.getFile();
-                System.out.println(sourceFile);
-                String szDestinationFilePath = System.getenv("FOLIES_PICTS") + "\\" + szHouseName;
-                File dest = new File(szDestinationFilePath);
-                saveAndTryToResizeImg(sourceFile, szDestinationFilePath, dest);
-            } else {
-                webResponce.seteSuccessFailed(ESuccessFailed.FAILED);
-                webResponce.setReason("Error When Try To Upload A Null File To The Server");
-            }
-        }
-        return webResponce;
-    }
-
-    private void saveAndTryToResizeImg(File sourceFile, String szDestinationFilePath, File dest) {
-        try {
-            play.Logger.info("<SETTER> save profile picture on file");
-            setterBL.copyFile(sourceFile, dest);
-            if (getTypeFile(szDestinationFilePath) != null) {
-                resizePhotoAndWrite(szDestinationFilePath, dest);
-            }
-            webResponce.setReason("Success Upload File To the Sever");
-        } catch (IOException e) {
-            e.printStackTrace();
-            webResponce.seteSuccessFailed(ESuccessFailed.FAILED);
-            webResponce.setReason("Error When Upload File To Server");
-            play.Logger.info(e.getMessage());
-        }
-    }
-
-    private void saveImg(File sourceFile, String szDestinationFilePath, File dest) {
-        try {
-            play.Logger.info("<SETTER> save food picture on file");
-            setterBL.copyFile(sourceFile, dest);
-            if (getTypeFile(szDestinationFilePath) != null) {
-                resizePhotoAndWrite(szDestinationFilePath, dest);
-            }
-            webResponce.setReason("Success Upload File To the Sever");
-        } catch (IOException e) {
-            e.printStackTrace();
-            webResponce.seteSuccessFailed(ESuccessFailed.FAILED);
-            webResponce.setReason("Error When Upload File To Server");
-            play.Logger.info(e.getMessage());
-        }
-    }
 
 
-    public WebResponce setHouseDocuments(String szHouseName, List<Http.MultipartFormData.FilePart> pictures) {
-        Iterator<Http.MultipartFormData.FilePart> filePartIterator = pictures.iterator();
-        while (filePartIterator.hasNext()) {
-            Http.MultipartFormData.FilePart picture = filePartIterator.next();
-            if (picture != null) {
-                File sourceFile = picture.getFile();
-                System.out.println(sourceFile);
-                String szDestinationFilePath = System.getProperty("user.dir") + "\\HousesDocuments\\" + szHouseName + "\\Docs\\" + picture.getFilename();
-                File dest = new File(szDestinationFilePath);
-                saveAndTryToResizeImg(sourceFile, szDestinationFilePath, dest);
-            } else {
-                webResponce.seteSuccessFailed(ESuccessFailed.FAILED);
-                webResponce.setReason("Error When Try To Upload A Null File To The Server");
-            }
-        }
-        return webResponce;
-    }
 
-    public WebResponce setHouseProfilePicture(String szHouseName, List<Http.MultipartFormData.FilePart> pictures) {
-        Iterator<Http.MultipartFormData.FilePart> filePartIterator = pictures.iterator();
-        while (filePartIterator.hasNext()) {
-            Http.MultipartFormData.FilePart picture = filePartIterator.next();
-            if (picture != null) {
-                File sourceFile = picture.getFile();
-                System.out.println(sourceFile);
-                String szDestinationFilePath = System.getProperty("user.dir") + "\\HousesDocuments\\" + szHouseName + "\\Profile\\" + szHouseName + "_profile.jpg";
-                File dest = new File(szDestinationFilePath);
-                saveAndTryToResizeImg(sourceFile, szDestinationFilePath, dest);
-            } else {
-                webResponce.seteSuccessFailed(ESuccessFailed.FAILED);
-                webResponce.setReason("Error When Try To Upload A Null File To The Server");
-            }
-        }
-        return webResponce;
-    }
+
+
+
+
+
+
 
     public String getTypeFile(String szFile) {
         String szTypeToReturn = null;

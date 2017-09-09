@@ -41,11 +41,6 @@ app.config(function ($stateProvider, $urlRouterProvider, $mdIconProvider, $mdToa
             templateUrl: "template/House.html",
             controller: 'house'
         })
-        .state('NewOrEditHouse', {
-            url: "/neworedithouse",
-            templateUrl: "template/NewOrEditHouse.html",
-            controller: 'neworedithouse'
-        })
         .state('UploadFood', {
             url: "/uploadfood",
             templateUrl: "template/UploadFood.html",

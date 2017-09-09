@@ -117,69 +117,7 @@ public class setterBL {
         return webResponce;
     }
 
-    public WebResponce updateHouseGeneralDetails(House m_house) {
-        webResponce = new WebResponce();
-        webResponce = setterDB.updateHouseGeneralDetails(m_house);
-        return webResponce;
-    }
 
-    public WebResponce updateHouseFinancialDetails(House m_house) {
-        webResponce = new WebResponce();
-        webResponce = setterDB.updateHouseFinancialDetails(m_house);
-        return webResponce;
-    }
-
-
-    /**
-     * Copy file from old location to a new location in the system we will use
-     * that for save the profile picture who we get from the client to the local
-     * directory in the server
-     *
-     * @param oldLocation
-     * @param newLocation
-     * @throws IOException
-     */
-    public static void copyFile(File oldLocation, File newLocation) throws IOException {
-        if (oldLocation.exists()) {
-            BufferedInputStream reader = new BufferedInputStream(new FileInputStream(oldLocation));
-            BufferedOutputStream writer = new BufferedOutputStream(new FileOutputStream(newLocation, false));
-            try {
-                byte[] buff = new byte[8192];
-                int numChars;
-                while ((numChars = reader.read(buff, 0, buff.length)) != -1) {
-                    writer.write(buff, 0, numChars);
-                }
-            } catch (IOException ex) {
-                throw new IOException(
-                        "IOException when transferring " + oldLocation.getPath() + " to " + newLocation.getPath());
-            } finally {
-                try {
-                    if (reader != null) {
-                        writer.close();
-                        reader.close();
-                    }
-                } catch (IOException ex) {
-                    System.out.println("Error closing files when transferring " + oldLocation.getPath() + " to "
-                            + newLocation.getPath());
-                }
-            }
-        } else {
-            throw new IOException("Old location does not exist when transferring " + oldLocation.getPath() + " to "
-                    + newLocation.getPath());
-        }
-    }
-
-    public WebResponce setFiles(String szHouseName, List<Http.MultipartFormData.FilePart> pictures) {
-        return fileSetter.setFiles(szHouseName, pictures);
-    }
-
-    public WebResponce setHouseDocuments(String szHouseName, List<Http.MultipartFormData.FilePart> pictures) {
-        return fileSetter.setHouseDocuments(szHouseName, pictures);
-    }
-
-    public WebResponce setHouseProfilePictures(String szHouseName, List<Http.MultipartFormData.FilePart> pictures) {
-        return fileSetter.setHouseProfilePicture(szHouseName, pictures);
-    }
 
     public WebResponce insertNewFood(FoodEntity m_foodEntity, List<Http.MultipartFormData.FilePart> foodPictures) throws IOException {
         webResponce = new WebResponce();
