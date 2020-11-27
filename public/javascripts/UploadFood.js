@@ -53,6 +53,7 @@ app.controller('uploadfood', ['$scope', '$http', '$state', '$interval', '$mdDial
         console.log($scope.files);
     });
 
+    // 12345
     $scope.updatePictures = function () {
         var formData = new FormData();
         for (var index = 0; index < $scope.files.length; index++) {
@@ -89,7 +90,6 @@ app.controller('uploadfood', ['$scope', '$http', '$state', '$interval', '$mdDial
     }
 
     $scope.check = function (value) {
-
         if ((value == "bassari") && ($scope.foodToUpload.bassari == true)) {
             $scope.foodToUpload.parve = false;
             $scope.foodToUpload.halavi = false;
